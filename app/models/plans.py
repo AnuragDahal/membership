@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, VARCHAR, DATETIME, Enum
+from sqlalchemy import Column, Integer, String
 from app.core.db import Base
-from datetime import datetime
 
 class Plan(Base):
     __tablename__ = "plans"
@@ -8,4 +7,3 @@ class Plan(Base):
     name = Column(String, index=True)
     price = Column(Integer)
     duration_days = Column(Integer)
-    

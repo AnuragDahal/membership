@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.core.db import engine, Base
+from app.api import members, plans, subscriptions
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,11 +14,12 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Membership API", lifespan=lifespan)
 
-from app.api import members, plans, subscriptions
 
 app.include_router(members.router, prefix="/members", tags=["members"])
 app.include_router(plans.router, prefix="/plans", tags=["plans"])
-app.include_router(subscriptions.router, prefix="/subscriptions", tags=["subscriptions"])
+app.include_router(subscriptions.router,
+                   prefix="/subscriptions", tags=["subscriptions"])
+
 
 @app.get("/")
 def read_root():
