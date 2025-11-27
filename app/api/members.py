@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.db import get_db
@@ -24,7 +24,7 @@ async def create_member(request: MemberCreate, db: AsyncSession = Depends(get_db
 async def get_members(db: AsyncSession = Depends(get_db)):
     try:
         members = await MemberService(db).get_all_members()
-        return {"message": "Members fetched successfully", "members": members}
+        return members
     except Exception as e:
         raise HTTPException(detail=str(
             e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

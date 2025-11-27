@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, HTTPException, status
 from app.core.db import get_db
-from app.schemas.members import MemberCreate
+from app.schemas.members import MemberCreate, MemberResponse
 from app.models.members import Member
 from sqlalchemy import select
 from typing import List
@@ -37,7 +37,7 @@ class MemberService:
             statement = select(Member)
             result = await self.session.execute(statement)
             members = result.scalars().all()
-            return members
+            return [MemberResponse(**member.model_dump()) for member in members]
         except Exception as e:
             raise HTTPException(
                 detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
