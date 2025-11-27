@@ -21,7 +21,7 @@ class AttendanceService:
                 raise HTTPException(
                     status_code=404, detail="No active subscriptions found")
             new_entry = Attendance(**attendance.model_dump())
-            entry_time = datetime.now(datetime.UTC)
+            entry_time = datetime.utcnow()
             new_entry.check_in = entry_time
             self.session.add(new_entry)
             await self.session.commit()

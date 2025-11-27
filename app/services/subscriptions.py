@@ -19,7 +19,7 @@ class SubscriptionService:
                 raise HTTPException(
                     detail="Plan not found", status_code=status.HTTP_404_NOT_FOUND
                 )
-            end_date = datetime.now(datetime.UTC) + \
+            end_date = datetime.utcnow() + \
                 timedelta(days=plan.duration_days)
             new_subscription = Subscription(**subscription_data.model_dump())
             new_subscription.end_date = end_date
@@ -38,7 +38,7 @@ class SubscriptionService:
             result = await self.session.execute(statement)
             subscriptions = result.scalars().all()
             active_subscriptions = [
-                subscription for subscription in subscriptions if subscription.end_date > datetime.now(datetime.UTC)]
+                subscription for subscription in subscriptions if subscription.end_date > datetime.utcnow()]
             if len(active_subscriptions) == 0:
                 raise HTTPException(
                     detail="No active subscriptions found", status_code=status.HTTP_404_NOT_FOUND

@@ -101,26 +101,26 @@ async def seed_database():
                 {
                     "member_id": members[0].id,  # Alice - Monthly Basic
                     "plan_id": plans[0].id,
-                    "start_date": datetime.now(datetime.UTC),
-                    "end_date": datetime.now(datetime.UTC) + timedelta(days=30),
+                    "start_date": datetime.utcnow(),
+                    "end_date": datetime.utcnow() + timedelta(days=30),
                 },
                 {
                     "member_id": members[1].id,  # Bob - Quarterly Premium
                     "plan_id": plans[1].id,
-                    "start_date": datetime.now(datetime.UTC),
-                    "end_date": datetime.now(datetime.UTC) + timedelta(days=90),
+                    "start_date": datetime.utcnow(),
+                    "end_date": datetime.utcnow() + timedelta(days=90),
                 },
                 {
                     "member_id": members[2].id,  # Charlie - Annual VIP
                     "plan_id": plans[2].id,
-                    "start_date": datetime.now(datetime.UTC),
-                    "end_date": datetime.now(datetime.UTC) + timedelta(days=365),
+                    "start_date": datetime.utcnow(),
+                    "end_date": datetime.utcnow() + timedelta(days=365),
                 },
                 {
                     "member_id": members[3].id,  # Diana - Weekly Trial
                     "plan_id": plans[3].id,
-                    "start_date": datetime.now(datetime.UTC),
-                    "end_date": datetime.now(datetime.UTC) + timedelta(days=7),
+                    "start_date": datetime.utcnow(),
+                    "end_date": datetime.utcnow() + timedelta(days=7),
                 },
             ]
 
