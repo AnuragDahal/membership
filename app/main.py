@@ -1,13 +1,15 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from app.core.db import engine, Base
+from app.core.db import engine
 from app.api import members, plans, subscriptions
+from sqlmodel import SQLModel
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create tables on startup (for development)
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(SQLModel.metadata.create_all)
     yield
     # Close connection on shutdown
     await engine.dispose()

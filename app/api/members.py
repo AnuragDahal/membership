@@ -4,29 +4,27 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.db import get_db
 from app.models.members import Member
 from app.schemas.members import MemberCreate, MemberResponse
-
+from app.services.members import MemberService
 
 router = APIRouter()
 
 
-@router.post("/member")
+@router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_member(request: MemberCreate, db: AsyncSession = Depends(get_db)):
     try:
-        member = db.query(Member).filter(Member.email == request.email).first()
-        if member:
-            raise HTTPException(
-                detail="member already exisits", status_code=status.http
-            )
-        new_member = Member(**request.model_dump())
-        await db.add(new_member)
+        member = await MemberService(db).create_member(request)
+        return {"message": "Member created successfully", "member": member}
 
     except Exception as e:
-        raise HTTPException(detail=str(e), status_code=status.HTTP_409_CONFLICT)
+        raise HTTPException(detail=str(
+            e), status_code=status.HTTP_409_CONFLICT)
 
 
-@router.get("/members", response_model=List[MemberResponse])
-async def get_member():
+@router.get("/", response_model=List[MemberResponse], status_code=status.HTTP_200_OK)
+async def get_members(db: AsyncSession = Depends(get_db)):
     try:
-        pass
+        members = await MemberService(db).get_all_members()
+        return {"message": "Members fetched successfully", "members": members}
     except Exception as e:
-        raise HTTPException(detail=str(e), status_code=500)
+        raise HTTPException(detail=str(
+            e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

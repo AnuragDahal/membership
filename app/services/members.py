@@ -2,21 +2,43 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends, HTTPException, status
 from app.core.db import get_db
 from app.schemas.members import MemberCreate
+from app.models.members import Member
+from sqlalchemy import select
+from typing import List
 
 
 class MemberService:
 
-    def __init__(self):
-        self.session: AsyncSession = Depends(get_db)
+    def __init__(self, session: AsyncSession):
+        self.session: AsyncSession = session
 
-    async def create_member(member_data: MemberCreate):
+    async def create_member(self, member_data: MemberCreate) -> Member:
 
         try:
-            
-            pass
+            statement = select(Member).where(Member.email == member_data.email)
+            result = await self.session.execute(statement)
+            member = result.scalar_one_or_none()
+            if member:
+                raise HTTPException(
+                    detail="Member already exists", status_code=status.HTTP_400_BAD_REQUEST
+                )
+            new_member = Member(**member_data.model_dump())
+            self.session.add(new_member)
+            await self.session.commit()
+            await self.session.refresh(new_member)
+            return new_member
         except Exception as e:
             raise HTTPException(
                 detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    
+    async def get_all_members(self) -> List[Member]:
+        try:
+            statement = select(Member)
+            result = await self.session.execute(statement)
+            members = result.scalars().all()
+            return members
+        except Exception as e:
+            raise HTTPException(
+                detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
