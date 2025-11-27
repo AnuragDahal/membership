@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from app.core.db import engine
 from app.api import members, plans, subscriptions
 from sqlmodel import SQLModel
+from app.api import attendance
 
 
 @asynccontextmanager
@@ -21,6 +22,8 @@ app.include_router(members.router, prefix="/members", tags=["members"])
 app.include_router(plans.router, prefix="/plans", tags=["plans"])
 app.include_router(subscriptions.router,
                    prefix="/subscriptions", tags=["subscriptions"])
+app.include_router(attendance.router,
+                   prefix="/attendance", tags=["attendance"])
 
 
 @app.get("/")

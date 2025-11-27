@@ -1,15 +1,18 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
+
 
 class MemberCreate(BaseModel):
     name: str
     email: str
     phone: str
 
+
 class MemberUpdate(BaseModel):
     name: str
     email: str
     phone: str
+
 
 class MemberResponse(BaseModel):
     id: int
@@ -20,5 +23,4 @@ class MemberResponse(BaseModel):
     status: str
     total_checkins: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

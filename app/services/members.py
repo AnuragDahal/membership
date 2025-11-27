@@ -23,7 +23,7 @@ class MemberService:
                     detail="Member already exists", status_code=status.HTTP_400_BAD_REQUEST
                 )
             new_member = Member(**member_data.model_dump())
-            self.session.add(new_member)
+            await self.session.add(new_member)
             await self.session.commit()
             await self.session.refresh(new_member)
             return new_member
