@@ -1,0 +1,304 @@
+{
+	"info": {
+		"name": "Membership Management API",
+		"description": "FastAPI-based membership management system with PostgreSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "Get All Members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/members/",
+							"host": ["{{base_url}}"],
+							"path": ["members", ""]
+						}
+					}
+				},
+				{
+					"name": "Get Member by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/members/1",
+							"host": ["{{base_url}}"],
+							"path": ["members", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Member",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"1234567890\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/members/",
+							"host": ["{{base_url}}"],
+							"path": ["members", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Member",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"phone\": \"0987654321\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/members/1",
+							"host": ["{{base_url}}"],
+							"path": ["members", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/members/1",
+							"host": ["{{base_url}}"],
+							"path": ["members", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Plans",
+			"item": [
+				{
+					"name": "Get All Plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/plans/",
+							"host": ["{{base_url}}"],
+							"path": ["plans", ""]
+						}
+					}
+				},
+				{
+					"name": "Get Plan by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/plans/1",
+							"host": ["{{base_url}}"],
+							"path": ["plans", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Plan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Monthly Plan\",\n  \"price\": 1000,\n  \"duration_days\": 30\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/plans/",
+							"host": ["{{base_url}}"],
+							"path": ["plans", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Plan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Monthly Premium\",\n  \"price\": 1500,\n  \"duration_days\": 30\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/plans/1",
+							"host": ["{{base_url}}"],
+							"path": ["plans", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Plan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/plans/1",
+							"host": ["{{base_url}}"],
+							"path": ["plans", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Subscriptions",
+			"item": [
+				{
+					"name": "Get All Subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/subscriptions/",
+							"host": ["{{base_url}}"],
+							"path": ["subscriptions", ""]
+						}
+					}
+				},
+				{
+					"name": "Get Subscription by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/subscriptions/1",
+							"host": ["{{base_url}}"],
+							"path": ["subscriptions", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Subscription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"member_id\": 1,\n  \"plan_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/subscriptions/",
+							"host": ["{{base_url}}"],
+							"path": ["subscriptions", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Subscription",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"member_id\": 1,\n  \"plan_id\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/subscriptions/1",
+							"host": ["{{base_url}}"],
+							"path": ["subscriptions", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Subscription",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/subscriptions/1",
+							"host": ["{{base_url}}"],
+							"path": ["subscriptions", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Attendance",
+			"item": [
+				{
+					"name": "Create Attendance (Check-in)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"member_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/attendance/",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", ""]
+						},
+						"description": "Creates an attendance record and automatically increments total_checkins via database trigger"
+					}
+				},
+				{
+					"name": "Get Attendance by Member ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/1",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "1"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
