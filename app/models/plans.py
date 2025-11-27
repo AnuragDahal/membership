@@ -1,9 +1,9 @@
-from sqlalchemy import Column, Integer, String
-from app.core.db import Base
+from sqlmodel import SQLModel, Field
+from typing import Optional
 
-class Plan(Base):
+class Plan(SQLModel, table=True):
     __tablename__ = "plans"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    price = Column(Integer)
-    duration_days = Column(Integer)
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    name: str = Field(index=True)
+    price: int
+    duration_days: int

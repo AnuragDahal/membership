@@ -7,9 +7,10 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
+from sqlmodel import SQLModel
 from app.core.config import settings
-from app.core.db import Base
-# Import all models to ensure they are registered with Base.metadata
+from app.core.db import engine
+# Import all models to ensure they are registered with SQLModel.metadata
 from app.models import members, plans, subscriptions, attendance
 
 # this is the Alembic Config object, which provides
@@ -26,7 +27,7 @@ config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-target_metadata = Base.metadata
+target_metadata = SQLModel.metadata
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.

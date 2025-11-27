@@ -1,9 +1,8 @@
-from sqlalchemy import Column, Integer, ForeignKey, DateTime
-from app.core.db import Base
+from sqlmodel import Field, SQLModel
 from datetime import datetime
+from typing import Optional
 
-class Attendance(Base):
-    __tablename__ = "attendance"
-    id = Column(Integer, primary_key=True, index=True)
-    member_id = Column(Integer, ForeignKey("members.id"), index=True)
-    check_in = Column(DateTime, default=datetime.utcnow)
+class Attendance(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    member_id: int = Field(foreign_key="members.id", index=True)
+    check_in: datetime = Field(default_factory=datetime.utcnow)

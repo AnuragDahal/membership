@@ -1,18 +1,13 @@
-from sqlalchemy import Column, Integer, String, DateTime, Enum
-from app.core.db import Base
+from sqlmodel import Field, SQLModel
 from datetime import datetime
-import enum
+from typing import Optional
 
-class MemberStatus(str, enum.Enum):
-    active = "active"
-    inactive = "inactive"
-
-class Member(Base):
+class Member(SQLModel, table=True):
     __tablename__ = "members"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    email = Column(String, unique=True, index=True)
-    phone = Column(String(15))
-    join_date = Column(DateTime, default=datetime.utcnow)
-    status = Column(Enum(MemberStatus), default=MemberStatus.active)
-    total_checkins = Column(Integer, default=0)
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field(max_length=100)
+    email: str = Field(max_length=100)
+    phone: str = Field(max_length=15, min_length=10)
+    join_date: datetime = Field(default_factory=datetime.utcnow)
+    status: str = Field(default="active")
+    total_checkins: int = Field(default=0)
