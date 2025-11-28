@@ -6,13 +6,7 @@ from sqlmodel import SQLModel
 from app.api import attendance
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
-    await engine.dispose()
-
-
-app = FastAPI(title="Membership API", lifespan=lifespan)
+app = FastAPI(title="Membership API")
 
 
 app.include_router(members.router, prefix="/members", tags=["members"])
