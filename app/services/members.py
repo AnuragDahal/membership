@@ -20,13 +20,16 @@ class MemberService:
             member = result.scalar_one_or_none()
             if member:
                 raise HTTPException(
-                    detail="Member already exists", status_code=status.HTTP_400_BAD_REQUEST
+                    detail="Member already exists",
+                    status_code=status.HTTP_400_BAD_REQUEST,
                 )
             new_member = Member(**member_data.model_dump())
             await self.session.add(new_member)
             await self.session.commit()
             await self.session.refresh(new_member)
             return new_member
+        except HTTPException:
+            raise
         except Exception as e:
             raise HTTPException(
                 detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -38,6 +41,8 @@ class MemberService:
             result = await self.session.execute(statement)
             members = result.scalars().all()
             return [MemberResponse(**member.model_dump()) for member in members]
+        except HTTPException:
+            raise
         except Exception as e:
             raise HTTPException(
                 detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR

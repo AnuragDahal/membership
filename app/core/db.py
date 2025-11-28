@@ -3,8 +3,7 @@ from sqlalchemy.orm import DeclarativeBase
 from typing import AsyncGenerator
 from app.core.config import settings
 
-engine = create_async_engine(settings.DATABASE_URL, echo=True)
-print(settings.DATABASE_URL)
+engine = create_async_engine(settings.DATABASE_URL, echo=False)
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
     class_=AsyncSession,
@@ -12,7 +11,6 @@ AsyncSessionLocal = async_sessionmaker(
     autoflush=False,
     autocommit=False,
 )
-
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:

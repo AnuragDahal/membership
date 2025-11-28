@@ -11,13 +11,11 @@ router = APIRouter()
 async def create_subscription(
     request: SubscriptionCreate, db: AsyncSession = Depends(get_db)
 ):
-    try:
-        subscription = await SubscriptionService(db).create_subscription(request)
-        return {"message": "Subscription created successfully", "subscription": subscription}
-    except Exception as e:
-        raise HTTPException(
-            detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
+    subscription = await SubscriptionService(db).create_subscription(request)
+    return {
+        "message": "Subscription created successfully",
+        "subscription": subscription,
+    }
 
 
 @router.get(
@@ -25,10 +23,9 @@ async def create_subscription(
     status_code=status.HTTP_201_CREATED,
 )
 async def get_subscription(id: int, db: AsyncSession = Depends(get_db)):
-    try:
-        subscription = await SubscriptionService(db).get_member_subscription(id)
-        return {"message": "Subscription fetched successfully", "subscription": subscription}
-    except Exception as e:
-        raise HTTPException(
-            detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
+
+    subscription = await SubscriptionService(db).get_member_subscription(id)
+    return {
+        "message": "Subscription fetched successfully",
+        "subscription": subscription,
+    }

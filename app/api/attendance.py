@@ -9,18 +9,16 @@ router = APIRouter()
 
 
 @router.post("/")
-async def create_attendance(request: AttendanceCreate, db: AsyncSession = Depends(get_db)):
-    try:
-        attendance = await AttendanceService(db).create_attendance(request)
-        return {"message": "Attendance created successfully", "data": attendance}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+async def create_attendance(
+    request: AttendanceCreate, db: AsyncSession = Depends(get_db)
+):
+
+    attendance = await AttendanceService(db).create_attendance(request)
+    return {"message": "Attendance created successfully", "data": attendance}
 
 
-@router.get('/{member_id}')
+@router.get("/{member_id}")
 async def get_attendance(member_id: int, db: AsyncSession = Depends(get_db)):
-    try:
-        attendance = await AttendanceService(db).get_attendance(member_id)
-        return {"message": "Attendance found", "data": attendance}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+
+    attendance = await AttendanceService(db).get_attendance(member_id)
+    return {"message": "Attendance found", "data": attendance}

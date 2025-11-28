@@ -16,10 +16,13 @@ class AttendanceService:
     async def create_attendance(self, attendance: AttendanceCreate) -> Attendance:
         try:
             member_id = attendance.member_id
-            active_subscriptions = await SubscriptionService(self.session).get_member_subscription(member_id)
+            active_subscriptions = await SubscriptionService(
+                self.session
+            ).get_member_subscription(member_id)
             if not active_subscriptions:
                 raise HTTPException(
-                    status_code=404, detail="No active subscriptions found")
+                    status_code=404, detail="No active subscriptions found"
+                )
             new_entry = Attendance(**attendance.model_dump())
             entry_time = datetime.utcnow()
             new_entry.check_in = entry_time
@@ -27,21 +30,18 @@ class AttendanceService:
             await self.session.commit()
             await self.session.refresh(new_entry)
             return new_entry
-
+        except HTTPException:
+            raise
         except Exception as e:
-            raise HTTPException(
-                status_code=500, detail=str(e))
+            raise HTTPException(status_code=500, detail=str(e))
 
     async def get_attendance(self, member_id: int) -> List[Attendance]:
         try:
-            statement = select(Attendance).where(
-                Attendance.member_id == member_id)
+            statement = select(Attendance).where(Attendance.member_id == member_id)
             result = await self.session.execute(statement)
             attendance = result.scalars().all()
             if not attendance:
-                raise HTTPException(
-                    status_code=404, detail="Attendance not found")
+                raise HTTPException(status_code=404, detail="Attendance not found")
             return attendance
         except Exception as e:
-            raise HTTPException(
-                status_code=500, detail=str(e))
+            raise HTTPException(status_code=500, detail=str(e))

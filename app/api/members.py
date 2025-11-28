@@ -11,20 +11,13 @@ router = APIRouter()
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_member(request: MemberCreate, db: AsyncSession = Depends(get_db)):
-    try:
-        member = await MemberService(db).create_member(request)
-        return {"message": "Member created successfully", "member": member}
 
-    except Exception as e:
-        raise HTTPException(detail=str(
-            e), status_code=status.HTTP_409_CONFLICT)
+    member = await MemberService(db).create_member(request)
+    return {"message": "Member created successfully", "member": member}
 
 
 @router.get("/", response_model=List[MemberResponse], status_code=status.HTTP_200_OK)
 async def get_members(db: AsyncSession = Depends(get_db)):
-    try:
-        members = await MemberService(db).get_all_members()
-        return members
-    except Exception as e:
-        raise HTTPException(detail=str(
-            e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    members = await MemberService(db).get_all_members()
+    return members

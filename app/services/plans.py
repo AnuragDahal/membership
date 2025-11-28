@@ -17,16 +17,20 @@ class PlanService:
             plan = result.scalar_one_or_none()
             if plan:
                 raise HTTPException(
-                    detail="Plan already exists", status_code=status.HTTP_400_BAD_REQUEST
+                    detail="Plan already exists",
+                    status_code=status.HTTP_400_BAD_REQUEST,
                 )
             new_plan = Plan(**plan_data.model_dump())
             self.session.add(new_plan)
             await self.session.commit()
             await self.session.refresh(new_plan)
             return new_plan
+        except HTTPException:
+            raise
         except Exception as e:
-            raise HTTPException(detail=str(
-                e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            raise HTTPException(
+                detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
     async def get_all_plans(self) -> List[Plan]:
         try:
@@ -34,6 +38,9 @@ class PlanService:
             result = await self.session.execute(statement)
             plans = result.scalars().all()
             return plans
+        except HTTPException:
+            raise
         except Exception as e:
-            raise HTTPException(detail=str(
-                e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            raise HTTPException(
+                detail=str(e), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
