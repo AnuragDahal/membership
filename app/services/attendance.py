@@ -32,17 +32,16 @@ class AttendanceService:
             raise HTTPException(
                 status_code=500, detail=str(e))
 
-    async def get_attendance(self, member_id: int) -> Attendance | None:
+    async def get_attendance(self, member_id: int) -> List[Attendance]:
         try:
             statement = select(Attendance).where(
                 Attendance.member_id == member_id)
             result = await self.session.execute(statement)
-            attendance = result.scalar_one_or_none()
+            attendance = result.scalars().all()
             if not attendance:
                 raise HTTPException(
                     status_code=404, detail="Attendance not found")
             return attendance
-
         except Exception as e:
             raise HTTPException(
                 status_code=500, detail=str(e))
