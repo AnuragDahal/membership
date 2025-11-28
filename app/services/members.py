@@ -1,10 +1,11 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Depends, HTTPException, status
-from app.core.db import get_db
-from app.schemas.members import MemberCreate, MemberResponse
-from app.models.members import Member
-from sqlalchemy import select
 from typing import List
+
+from fastapi import HTTPException, status
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.models.members import Member
+from app.schemas.members import MemberCreate, MemberResponse
 
 
 class MemberService:

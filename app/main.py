@@ -1,10 +1,6 @@
 from fastapi import FastAPI
-from contextlib import asynccontextmanager
-from app.core.db import engine
-from app.api import members, plans, subscriptions
-from sqlmodel import SQLModel
-from app.api import attendance
 
+from app.api import attendance, members, plans, subscriptions
 
 app = FastAPI(title="Membership API")
 

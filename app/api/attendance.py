@@ -3,7 +3,7 @@ from app.schemas.attendance import AttendanceCreate
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.db import get_db
 from app.services.attendance import AttendanceService
-from fastapi import HTTPException, Depends
+from fastapi import Depends
 
 router = APIRouter()
 

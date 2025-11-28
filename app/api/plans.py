@@ -1,7 +1,6 @@
-from typing import List
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, status, Depends
 from app.services.plans import PlanService
-from app.schemas.plans import PlanCreate, PlanResponse
+from app.schemas.plans import PlanCreate
 from app.core.db import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 

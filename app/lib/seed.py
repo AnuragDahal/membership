@@ -12,7 +12,6 @@ Usage:
 
 import asyncio
 from datetime import datetime, timedelta
-from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.db import AsyncSessionLocal
 from app.models.members import Member
 from app.models.plans import Plan

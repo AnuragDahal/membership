@@ -1,8 +1,7 @@
-from typing import List, Union
-from fastapi import APIRouter, Depends, HTTPException, status
+from typing import List
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.db import get_db
-from app.models.members import Member
 from app.schemas.members import MemberCreate, MemberResponse
 from app.services.members import MemberService
 

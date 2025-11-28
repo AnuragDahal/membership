@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.subscriptions import Subscription
-from app.schemas.subscriptions import SubscriptionCreate, SubscriptionResponse
+from app.schemas.subscriptions import SubscriptionCreate
 from typing import List
 from sqlalchemy import select
 from datetime import datetime, timedelta
